@@ -12,12 +12,13 @@ export class HomePage {
 	uneIdEcole: number = 1;
 	constructor(public navCtrl: NavController, public http: Http, public actionSheetCtrl: ActionSheetController) 
 	{
-  		this.http = http;
-        this.navCtrl = navCtrl;
-        this.http.get('http://localhost/vygieTest/api.php').map(res => res.json()).subscribe(data => {
-        console.log(data);
-        this.posts = data;
-    });
+  	     	this.http = http;
+            this.navCtrl = navCtrl;
+            this.http.get('http://localhost/vygieTest/api.php').map(res => res.json()).subscribe(data => {
+                console.log(data);
+                this.posts = data;
+            });
+
 	}	
 
 	makePostRequest(uneEcole,uneMaladie) {
