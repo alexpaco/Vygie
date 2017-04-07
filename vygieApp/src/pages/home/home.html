@@ -1,0 +1,10 @@
+ <ion-header>
+ 	<ion-toolbar color ='orange'>
+ 		<ion-title>Vygie</ion-title>
+ 	</ion-toolbar>
+ </ion-header>
+<ion-content class="home"> 
+    	<div id='affichage' >
+    		<button class="btn" *ngFor="let post of posts" ion-button color ='orange' [innerHTML]="post.nom_Maladie" (click)="makePostRequest(uneIdEcole,post.id_Maladie)"></button>
+    	</div>
+</ion-content>
