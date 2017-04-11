@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
+	<title>Page principale</title>
 </head>
 <body>
 <script type="text/javascript" src="js/creationCarte.js"></script>
