@@ -7,7 +7,7 @@
 </head>
 <body>
 	<section id='parant'>
-		<a id='logo' href='/principale'><img src="img/logo-08.svg" alt="LogoVigye"></a>
+		<a id='logo' href='{{asset("principale")}}'><img src="img/logo-08.svg" alt="LogoVigye"></a>
 		<article id='textDePresentation'>
 			<p>
 				Vygie est une application de lancement d’alerte de certaines épidémies touchant principalement les jeunes enfants en milieu scolaire. Le concept repose sur le signalement d’un début d’épidémie (poux, varicelle, gastro…) par le corps pédagogique. 
