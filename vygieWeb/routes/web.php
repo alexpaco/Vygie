@@ -14,3 +14,7 @@
 Route::get('/principale', function () {
     return view('pagePrincipale');
 });
+
+Route::get('/', function () {
+    return view('accueil');
+});
