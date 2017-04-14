@@ -18,3 +18,5 @@ Route::get('/principale', function () {
 Route::get('/', function () {
     return view('accueil');
 });
+
+Route::post('affiche', 'AfficheVilleController@afficheVilles');
