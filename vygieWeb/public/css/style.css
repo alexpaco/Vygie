@@ -1,11 +1,27 @@
 body{
 	background: #FFF4F3;
 }
-ul{
+#liste{
 	position: absolute;
 	left: 50%;
-	top: 50%;
-	
+	top: 48%;
+	transform: translate(-50%, -50%);
+	height: 500px;
+	width: 18%;
+	overflow: auto;
+}
+#liste2{
+	position: absolute;
+	left: 75%;
+	top: 48%;
+	transform: translate(-50%,-50%);
+	height: 500px;
+	width: 18%;
+	overflow: auto;
+}
+li{
+	list-style: none;
+	cursor: pointer;
 }
 #canvasMap{
     position: absolute;

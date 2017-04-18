@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Departement;
 use App\Ville;
+use App\Ecole;
 
 class AfficheVilleController extends Controller
 {
@@ -13,8 +14,20 @@ class AfficheVilleController extends Controller
 		$dept = $request->input('dept');
 		$ville = new Ville;
 		
-		$villes = $ville::select("codePostal", "nom_Ville")->where("id_Departement", $dept)->get();
+		$villes = $ville::select("codePostal", "nom_Ville", "id_Ville")->where("id_Departement", $dept)->orderBy('nom_Ville', 'asc')->get();		
 		
-		return response()->json(['dept' => $villes]);
+		return response(['dept' => $villes]);
     }
+
+    public function afficheEcoles(Request $request){
+
+    	$ville = $request->input('ville');
+
+    	$ecole = new Ecole;
+
+    	$ecoles = $ecole::select("nom_Ecole")->where("id_Ville", $ville)->get();
+
+    	return response()->json(['ville' => $ecoles]);
+    }
+
 }

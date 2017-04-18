@@ -19,4 +19,6 @@ Route::get('/', function () {
     return view('accueil');
 });
 
-Route::post('affiche', 'AfficheVilleController@afficheVilles');
+Route::post('afficheVille', 'AfficheVilleController@afficheVilles');
+
+Route::post('afficheEcole', 'AfficheVilleController@afficheEcoles');
