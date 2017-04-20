@@ -1,20 +1,69 @@
+body{
+	background: #FFF4F3;
+}
+#liste{
+	position: absolute;
+	left: 50%;
+	top: 48%;
+	transform: translate(-50%, -50%);
+	height: 500px;
+	width: 18%;
+	overflow: auto;
+}
+#liste2{
+	position: absolute;
+	left: 75%;
+	top: 48%;
+	transform: translate(-50%,-50%);
+	height: 500px;
+	width: 18%;
+	overflow: auto;
+}
+li{
+	list-style: none;
+	cursor: pointer;
+}
 #canvasMap{
-     
     position: absolute;
+    left: 25%;
+    top: 50%;
+    transform: translate(-50%, -50%);
     width : 500px;
     height : 500px;
     z-index: 1;
+    
 }
-
+#canvas{
+	position: absolute;
+	left: 25%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+}
 #legende {
+	position: absolute;
+	left: 10%;
+	top: 20%;
 	font-size: 12px;
 	color: #FF5B2B;
 	font-weight: bold;
 	z-index: 100;
 	margin-bottom: 30px;
-	background-color: #FFFFFF;
-	position: absolute;
+	background-color: #FFF4F3;
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 	padding: 4px;
 	  
 }
+
+@media all and (max-width :1024px){
+
+	#canvas{
+		transform: translate(-20%, -50%);
+	}
+	#canvasMap{
+		transform: translate(-20%, -50%);
+	}
+	#legende{
+		left: 7%;
+		top: 10%;
+	}
+} 
