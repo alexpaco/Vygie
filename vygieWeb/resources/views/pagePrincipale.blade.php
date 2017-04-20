@@ -39,6 +39,7 @@
 							"dept": $('#formulaire').html(),
 						},
 						success: function(data){
+							document.getElementById('liste2').innerHTML = "";
 							document.getElementById('liste').innerHTML = "";
 							for (var i = 0; i < data.dept.length; i++) {
 								document.getElementById('liste').innerHTML+= "<li data-id='"+data.dept[i].id_Ville+ "'>" + data.dept[i].nom_Ville + "</li>";
@@ -64,7 +65,7 @@
 					success: function(data){
 						document.getElementById('liste2').innerHTML = "";
 						for (var i = 0; i < data.ville.length; i++) {
-							document.getElementById('liste2').innerHTML += "<li>"+ data.ville[i].nom_Ecole +"</li>";
+							document.getElementById('liste2').innerHTML += "<li data_id= '"+data.ville[i].id_Ecole+"'>"+ data.ville[i].nom_Ecole +"</li>";
 						}
 						
 

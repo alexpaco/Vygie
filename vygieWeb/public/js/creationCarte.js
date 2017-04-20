@@ -606,7 +606,6 @@ $(function(){
         $('<area />', {
           shape : "poly",
           coords : ""+obj+"",
-          // href :  ""+lnk+"",
           alt : ""+txt+"",
           id : id,
         }).data({
@@ -624,8 +623,6 @@ $(function(){
                             fillStyle : couleurCarte});
 		        $("div#legende").html("");
         }).click(function(){
-            //location.href=href;
-		        // window.location.href;
             $("#formulaire").html(this.id);
             render();
         }).appendTo(areas);

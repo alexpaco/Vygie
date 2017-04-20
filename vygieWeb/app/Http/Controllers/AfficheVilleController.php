@@ -25,7 +25,7 @@ class AfficheVilleController extends Controller
 
     	$ecole = new Ecole;
 
-    	$ecoles = $ecole::select("nom_Ecole")->where("id_Ville", $ville)->get();
+    	$ecoles = $ecole::select("nom_Ecole", "id_Ecole")->where("id_Ville", $ville)->orderBy('nom_Ecole', 'asc')->get();
 
     	return response()->json(['ville' => $ecoles]);
     }
