@@ -1,4 +1,4 @@
- var couleurCarte = "#FF5B2B";
+ var couleurCarte = "#FF6B35";
  var couleurHover = "#423E3D";
  var frontièresDept = "#000000";
 

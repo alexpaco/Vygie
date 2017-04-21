@@ -22,3 +22,5 @@ Route::get('/', function () {
 Route::post('afficheVille', 'AfficheVilleController@afficheVilles');
 
 Route::post('afficheEcole', 'AfficheVilleController@afficheEcoles');
+
+Route::post('afficheMaladie','AfficheVilleController@afficheMaladie');
