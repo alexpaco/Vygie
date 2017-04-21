@@ -1,0 +1,149 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<script src="https://code.jquery.com/jquery-3.2.0.min.js" integrity="sha256-JAW99MJVpJBGcbzEuXk4Az05s/XyDdBomFqNlM3ic+I=" crossorigin="anonymous"></script>
+	<title>Inscription</title>
+	<style>
+		body{background-color: orange;color: white; padding: 32px; text-align: justify;}
+	</style>
+</head>
+<body>
+
+<!-- administration -->
+
+<form action="http://localhost/vygieApp/Vygie/VygiAjoutbdd+convP/apiBackOffice/apiBackOffice.php" method="post">
+		<h1>Ajout departement</h1>
+	<label for="ville">ville :</label><br>
+	<input name="ville" id="ville" type="text">
+	<br><br>
+	<label for="codePostal">codePostal :</label><br>
+	<input name="codePostal" id="codePostal" type="number">
+	<br><br>
+	<label for="id_Departement">numero departement :</label><br>
+	<input name="id_Departement" id="id_Departement" type="number">
+	<br><br>
+	<label for="nom_Ecole">nom_Ecole :</label><br>
+	<input name="nom_Ecole" id="nom_Ecole" type="text">
+	<br><br>
+	<label for="adresse_Ecole">adresse_Ecole :</label><br>
+	<input name="adresse_Ecole" id="adresse_Ecole" type="text">
+	<br><br>
+	<label for="latitude">latitude :</label><br>
+	<input name="latitude" id="latitude" type="text">
+	<br><br>
+	<label for="longitude">longitude :</label><br>
+	<input name="longitude" id="longitude" type="text">
+	<br><br>
+	<input id="bouton" type="submit" name="publier" value="Publier">
+
+	
+	<!-- 	<h2>Supression</h2>
+	<label for="id_Ecole"> id_Ecole  : </label>
+	<input name="id_Ecole" id="id_Ecole" type="number">
+	<input type="submit" id="supprimer" name="supprimer" value="Supprimer">
+		<br><br><br>  <br><br><br> -->
+</form>
+
+<script>
+		//AJOUT
+	$('#bouton').on('click',function(e) {
+		e.preventDefault();
+		var ville = document.getElementById('ville').value;
+		var codePostal = document.getElementById('codePostal').value;
+		var id_Departement = document.getElementById('id_Departement').value;
+		var id_Ecole = document.getElementById('id_Ecole').value;
+		var nom_Ecole = document.getElementById('nom_Ecole').value;
+		var adresse_Ecole = document.getElementById('adresse_Ecole').value;
+		var latitude = document.getElementById('latitude').value;
+		var longitude = document.getElementById('longitude').value;
+		var infos = {
+			infos : {
+				ville : ville,
+				codePostal : codePostal,
+				id_Departement : id_Departement,
+				id_Ecole : id_Ecole,
+				nom_Ecole : nom_Ecole,
+				adresse_Ecole: adresse_Ecole,
+				latitude: latitude,
+				longitude: longitude
+			}
+		};
+		
+		$.ajax({
+				type: "POST",
+				url: "http://localhost/vygieApp/Vygie/VygiAjoutbdd+convP/apiBackOffice/apiBackOffice.php",
+				contentType : "application/json",
+				data: JSON.stringify(infos),
+				success: function(msg) {
+
+				}
+		});
+	})
+		
+		//SUPPRESSION	
+	$('#supprimer').on('click',function(e) {
+		e.preventDefault();
+		var ville = document.getElementById('ville').value;
+		var codePostal = document.getElementById('codePostal').value;
+		var id_Departement = document.getElementById('id_Departement').value;
+		var id_Ecole = document.getElementById('id_Ecole').value;
+		var nom_Ecole = document.getElementById('nom_Ecole').value;
+		var adresse_Ecole = document.getElementById('adresse_Ecole').value;
+		var latitude = document.getElementById('latitude').value;
+		var longitude = document.getElementById('longitude').value;
+		var infos = {
+			infos : {
+				ville : ville,
+				codePostal : codePostal,
+				id_Departement : id_Departement,
+				id_Ecole : id_Ecole,
+				nom_Ecole : nom_Ecole,
+				adresse_Ecole: adresse_Ecole,
+				latitude: latitude,
+				longitude: longitude
+		}
+	}
+				$.ajax({
+						type: "DELETE",
+					 url: "http://localhost/vygieApp/Vygie/VygiAjoutbdd+convP/apiBackOffice/apiBackOffice.php",
+						contentType :'application/json',
+						data: JSON.stringify(infos),
+						success: function(msg) { 
+						}
+				});
+		 })
+</script>
+
+
+
+<!-- Affichage -->
+
+<!-- <div id="result"></div>
+
+<script>
+$(document).ready(function () {
+	$.ajax({
+		type: 'GET',
+		url: "http://localhost/vygieApp/Vygie/VygiAjoutbdd+convP/apiBackOffice/apiBackOffice.php",
+		success: function (data) {
+			var ecole = JSON.parse(data);
+			for (var i = 0; i < ecole.length; i++) {
+				document.getElementById('result').innerHTML +=
+				"<p>" +
+				"<strong>" + ecole[i].nom_Ecole + "</strong><br>" +
+				ecole[i].adresse_Ecole + "<br>" +
+				ecole[i].latitude + "<br><br>"  +
+				ecole[i].longitude + "<br><br>"
+"</p><br><br><br><br><br>";
+			}
+		}
+	});
+});
+</script> -->
+
+</body>
+</html>
