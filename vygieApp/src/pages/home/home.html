@@ -1,10 +1,39 @@
  <ion-header>
  	<ion-toolbar color ='orange'>
- 		<ion-title>Vygie</ion-title>
+ 		<div id='conteneurHeader'>
+ 			<ion-title>Vygie</ion-title>
+ 			<button id='parametre' (click)="renit()"><ion-icon name="md-settings"></ion-icon></button>
+ 		</div>
  	</ion-toolbar>
  </ion-header>
-<ion-content class="home"> 
-    	<div id='affichage' >
-    		<button class="btn" *ngFor="let post of posts" ion-button color ='orange' [innerHTML]="post.nom_Maladie" (click)="makePostRequest(uneIdEcole,post.id_Maladie)"></button>
+<ion-content class='home'> 
+	<div id='choisiTonEcole'>
+		<div id='conteneur'>
+			<div id='secondConteneur'>
+			<img src="assets/images/logo-08.svg">
+				<h2 id = 'titre'>Bienvenue</h2>
+				<select id='choisiUneEcole' class='marge'>
+					<option value='0' selected='selected'>sélectionner une école</option>
+					<option *ngFor="let post of posts" [innerHTML]="post.nom_Ecole" [value]=post.id_Ecole></option>
+				</select>
+				<button id='bouton' (click)="ontest()" class='marge'>valider</button>
+			</div>
+		</div>
+	</div>
+	<div id='misEnPage1'>
+		<div id='misEnPage2'>
+			<h2 [innerHTML]="titre"></h2>
+    		<div id='affichage' >
+    				<div id='affichage3'>
+    					<button class='btn' *ngFor='let post of posts' ion-button color ='orange' [innerHTML]="post.nom_Maladie" (click)="makePostRequest(id,post.id_Maladie)"></button>
+    				</div>
+    				<div id='affichage2'>
+    					<div id='affichage4' *ngFor='let affichage of affichages'>
+    						<p class='chiffre' [innerHTML]="affichage.total"></p>
+    						<button (click)="suprime(id,affichage.id_Maladie,affichage.lastId)">-</button>
+    					</div>
+    				</div>
+    		</div>
     	</div>
+    </div>
 </ion-content>

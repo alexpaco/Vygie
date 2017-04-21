@@ -14,3 +14,13 @@
 Route::get('/principale', function () {
     return view('pagePrincipale');
 });
+
+Route::get('/', function () {
+    return view('accueil');
+});
+
+Route::post('afficheVille', 'AfficheVilleController@afficheVilles');
+
+Route::post('afficheEcole', 'AfficheVilleController@afficheEcoles');
+
+Route::post('afficheMaladie','AfficheVilleController@afficheMaladie');
