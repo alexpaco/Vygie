@@ -10,11 +10,17 @@
 	<header>
 		<a href="{{asset('/')}}"><img src="img/logo-08.svg" id="logo"></a>
 	</header>
-	<p style="text-align: center">Quand il y a un cas de maladie dans une école, elle s'affichera d'une autre couleur, cliquer dessus pour voir de quelle maladie il s'agit.</p>
+	<p class="explication">Pour commencer choisissez un département, ainsi que la ville où se situe l'école.</p>
+	<p class="explication">Quand il y a un cas de maladie dans une école, elle s'affichera d'une autre couleur, cliquer dessus pour voir de quelle maladie il s'agit.</p>
 	<div id="legende"></div>
 	<map  id="map" name="map">
 		<div id="areas"></div> 
 	</map>
+	<ul id="listeDept">
+		@foreach($dept as $Dept)
+			<li data-id="{{ $Dept->id_Departement }}">{{ $Dept->nom_Departement }}</li><hr>
+		@endforeach
+	</ul>
 	<img id="canvasMap" id="image" src="img/fondCarte.png" usemap="#map"/>
 	<canvas id="canvas">Mettez à jour votre navigateur Internet !</canvas>
 	<a id="formulaire" style="visibility: hidden;"></a>
@@ -59,12 +65,38 @@
 							document.getElementById('liste').innerHTML = "";
 							document.getElementById('liste2').innerHTML = "";
 							for (var i = 0; i < data.dept.length; i++) {
-								document.getElementById('liste').innerHTML+= "<li data-id='"+data.dept[i].id_Ville+ "'>" + data.dept[i].nom_Ville + "</li>";
+								document.getElementById('liste').innerHTML+= "<li data-id='"+data.dept[i].id_Ville+ "'>" + data.dept[i].nom_Ville + "</li><hr>";
 							}
 						} 
 					});
 				});
 			}
+
+			$('#listeDept').on("click", "li", function(event){
+
+				var resultat = $(this).attr("data-id");
+				$('#formulaire').html(resultat);
+				// event.preventDefault();
+				$.ajax({
+					method: 'POST',
+					url: 'afficheVille',
+					data: {
+						"_token": "{{ csrf_token() }}",
+						"dept": $('#formulaire').html(),
+					},
+					success: function(data){
+						document.getElementById('ecole').innerHTML = "";
+						document.getElementById('entete_maladie').innerHTML = "";
+						document.getElementById('maladie').innerHTML = "";
+						document.getElementById('ville').innerHTML = "VILLES :";
+						document.getElementById('liste').innerHTML = "";
+						document.getElementById('liste2').innerHTML = "";
+						for (var i = 0; i < data.dept.length; i++) {
+							document.getElementById('liste').innerHTML+= "<li data-id='"+data.dept[i].id_Ville+ "'>" + data.dept[i].nom_Ville + "</li><hr>";
+						}
+					}
+				});
+			});
 
 			$('#liste').on("click", "li", function(event){
 				var resultat = $(this).attr("data-id");
@@ -85,10 +117,10 @@
 						document.getElementById('liste2').innerHTML = "";
 						for (var i = 0; i < data.ville.length; i++) {
 							if(data.ville[i].id_Ecole === data.ecole ){
-								document.getElementById('liste2').innerHTML += "<li data-id= '"+data.ville[i].id_Ecole+"' style='color: red;'>"+ data.ville[i].nom_Ecole +"</li>";
+								document.getElementById('liste2').innerHTML += "<li data-id= '"+data.ville[i].id_Ecole+"' style='color: red;'>"+ data.ville[i].nom_Ecole +"</li><hr>";
 							}
 							else{
-								document.getElementById('liste2').innerHTML += "<li data-id= '"+data.ville[i].id_Ecole+"'>"+ data.ville[i].nom_Ecole +"</li>";
+								document.getElementById('liste2').innerHTML += "<li data-id= '"+data.ville[i].id_Ecole+"'>"+ data.ville[i].nom_Ecole +"</li><hr>";
 							}
 							
 						}
@@ -114,8 +146,11 @@
 						document.getElementById('entete_maladie').innerHTML = "";
 						if(data.enfant[0].infecter_Actif === 1){							
 						document.getElementById('entete_maladie').innerHTML = "MALADIE : ";
-						document.getElementById('maladie').innerHTML += "<p>"+ data.ecole[0].nom_Maladie +"</p>"
+						document.getElementById('maladie').innerHTML += "<p>"+ data.ecole[0].nom_Maladie +"</p>";
 						document.getElementById('maladie').innerHTML += "<p>Nombre d'élèves malades : "+ data.enfant[0].infecter_NbEnfant +"</p>";
+						}
+						else{
+							document.getElementById('maladie').innerHTML += "<p>Aucune maladie à déclarer.</p>";
 						}
 
 

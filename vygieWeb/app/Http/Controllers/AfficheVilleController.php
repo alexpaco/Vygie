@@ -11,6 +11,15 @@ use App\Infecter;
 
 class AfficheVilleController extends Controller
 {
+    public function afficheDepartement(Request $request){
+
+        $departement = new Departement;
+
+        $dept = $departement::select('id_Departement', 'nom_Departement')->get();
+
+        return view('pagePrincipale', array('dept' => $dept));
+    }
+
     public function afficheVilles(Request $request){
 
 		$dept = $request->input('dept');

@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/principale', function () {
-    return view('pagePrincipale');
-});
+Route::get('/principale', 'AfficheVilleController@afficheDepartement');
 
 Route::get('/', function () {
     return view('accueil');

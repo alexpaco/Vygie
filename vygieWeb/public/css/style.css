@@ -1,6 +1,7 @@
 body{
 	background: #FFF4F3;
 	margin: 0;
+	font-family: 'Pavanam', sans-serif;
 }
 header{
 	background-color: #423E3D;
@@ -10,50 +11,56 @@ header{
 	margin-left: 10%;
 
 }
+.explication{
+	text-align: center;
+}
+#listeDept{
+	display: none;
+}
 #ville{
 	position: absolute;
 	left: 42%;
-	top: 20%;
+	top: 22%;
 	font-weight: bold;
 	text-decoration: underline;
 }
 #ecole{
 	position: absolute;
-	left: 63%;
-	top: 20%;
+	left: 62%;
+	top: 22%;
 	font-weight: bold;
 	text-decoration: underline;
 }
 #liste{
 	position: absolute;
 	left: 50%;
-	top: 48%;
-	transform: translate(-50%, -45%);
+	top: 55%;
+	transform: translate(-50%, -50%);
 	height: 500px;
 	width: 18%;
 	overflow: auto;
 }
 #liste2{
 	position: absolute;
-	left: 75%;
-	top: 48%;
-	transform: translate(-50%,-45%);
+	left: 68.5%;
+	top: 55%;
+	transform: translate(-50%,-50%);
 	height: 500px;
-	width: 18%;
+	width: 15%;
 	overflow: auto;
 }
 #entete_maladie{
 	position: absolute;
 	left: 81%;
-	top: 20%;
+	top: 22%;
 	font-weight: bold;
 	text-decoration: underline;
 }
 #maladie{
 	position: absolute;
 	left: 90%;
-	top: 48%;
-	transform: translate(-50%,-45%);
+	top: 55%;
+	transform: translate(-50%,-50%);
 	height: 500px;
 	width: 18%;
 }
@@ -64,7 +71,7 @@ li{
 #canvasMap{
     position: absolute;
     left: 25%;
-    top: 50%;
+    top: 60%;
     transform: translate(-50%, -50%);
     width : 500px;
     height : 500px;
@@ -74,13 +81,13 @@ li{
 #canvas{
 	position: absolute;
 	left: 25%;
-	top: 50%;
+	top: 60%;
 	transform: translate(-50%, -50%);
 }
 #legende {
 	position: absolute;
-	left: 10%;
-	top: 20%;
+	left: 12%;
+	top: 30%;
 	font-size: 12px;
 	color: #FF5B2B;
 	font-weight: bold;
@@ -104,14 +111,44 @@ footer{
 
 @media all and (max-width :1024px){
 
-	#canvas{
-		transform: translate(-20%, -50%);
+	#canvas, #canvasMap, #legende{
+		display: none;
 	}
-	#canvasMap{
-		transform: translate(-20%, -50%);
+	#listeDept{
+		margin-top: 20px;
+		display: block;
+		overflow: auto;
+		height: 210px;
 	}
-	#legende{
-		left: 7%;
-		top: 20%;
+	#ville{
+		left: 10%;
+		top: 45%;
+	}
+	#liste{
+		width: 40%;
+		left: 0px;
+		transform: translate(0%, 0%);
+		height: 210px;
+	}
+	#ecole{
+		left: 53%;
+		top: 45%;
+	}
+	#liste2{
+		width: 40%;
+		left: 45%;
+		transform: translate(0%, 0%);
+		height: 210px;
+	}
+	#entete_maladie{
+		left: 53%;
+		top: 75%;
+	}
+	#maladie{
+		width: 40%;
+		left: 50%;
+		top: 80%;
+		transform: translate(0%, 0%);
+		height: 100px;
 	}
 } 
