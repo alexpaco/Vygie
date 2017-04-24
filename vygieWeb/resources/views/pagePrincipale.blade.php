@@ -16,21 +16,34 @@
 	<map  id="map" name="map">
 		<div id="areas"></div> 
 	</map>
-	<ul id="listeDept">
-		@foreach($dept as $Dept)
-			<li data-id="{{ $Dept->id_Departement }}">{{ $Dept->nom_Departement }}</li><hr>
-		@endforeach
-	</ul>
+	<form id="formDept">
+		<select id="listeDept">s
+				<option>Choisissez votre département</option>
+			@foreach($dept as $Dept)
+				<option value="{{ $Dept->id_Departement }}">{{ $Dept->nom_Departement }}</option>
+			@endforeach
+		</select>
+		<input type="submit" name="submit" id="valider">
+	</form>
+	<p id="avertissement"></p>
+	<form id="formVille">
+		<select id="listeVille">
+		</select>
+		<input type="submit" name="sublit" id="valideVille">	
+	</form>
+	<form id="formEcole">
+		<select id="listeEcole"></select>
+	</form>
 	<img id="canvasMap" id="image" src="img/fondCarte.png" usemap="#map"/>
 	<canvas id="canvas">Mettez à jour votre navigateur Internet !</canvas>
 	<a id="formulaire" style="visibility: hidden;"></a>
 	<a id="formulaire2" style='visibility: hidden;'></a>
 	<a id="formulaire3" style="visibility: hidden;"></a>
-	<p id="ville"></p>
+	<h5 id="ville"></h5>
 	<ul id="liste"></ul>
-	<p id="ecole"></p>
+	<h5 id="ecole"></h5>
 	<ul id="liste2"></ul>
-	<p id="entete_maladie"></p>
+	<h5 id="entete_maladie"></h5>
 	<div id="maladie"></div>
 
 	<footer>
@@ -44,7 +57,8 @@
 			$.ajaxSetup({
 				headers: { 'X-CSRF-Token' : $('meta[name=_token]').attr('content') }
 			});
-			
+
+			//  Ajax pour interaction avec grand écran
 			for (var i = 1; i <=95; i++) {
 				var dept = $("#"+i);
 				dept.click(function(event){
@@ -71,32 +85,6 @@
 					});
 				});
 			}
-
-			$('#listeDept').on("click", "li", function(event){
-
-				var resultat = $(this).attr("data-id");
-				$('#formulaire').html(resultat);
-				// event.preventDefault();
-				$.ajax({
-					method: 'POST',
-					url: 'afficheVille',
-					data: {
-						"_token": "{{ csrf_token() }}",
-						"dept": $('#formulaire').html(),
-					},
-					success: function(data){
-						document.getElementById('ecole').innerHTML = "";
-						document.getElementById('entete_maladie').innerHTML = "";
-						document.getElementById('maladie').innerHTML = "";
-						document.getElementById('ville').innerHTML = "VILLES :";
-						document.getElementById('liste').innerHTML = "";
-						document.getElementById('liste2').innerHTML = "";
-						for (var i = 0; i < data.dept.length; i++) {
-							document.getElementById('liste').innerHTML+= "<li data-id='"+data.dept[i].id_Ville+ "'>" + data.dept[i].nom_Ville + "</li><hr>";
-						}
-					}
-				});
-			});
 
 			$('#liste').on("click", "li", function(event){
 				var resultat = $(this).attr("data-id");
@@ -147,7 +135,6 @@
 						if(data.enfant[0].infecter_Actif === 1){							
 						document.getElementById('entete_maladie').innerHTML = "MALADIE : ";
 						document.getElementById('maladie').innerHTML += "<p>"+ data.ecole[0].nom_Maladie +"</p>";
-						document.getElementById('maladie').innerHTML += "<p>Nombre d'élèves malades : "+ data.enfant[0].infecter_NbEnfant +"</p>";
 						}
 						else{
 							document.getElementById('maladie').innerHTML += "<p>Aucune maladie à déclarer.</p>";
@@ -158,7 +145,85 @@
 				});
 
 			});
+
+			// Ajax interaction avec petit écran
+			$('#valider').on("click", function(event){
+
+				var resultat = $('#listeDept').val();
+				$('#formulaire').html(resultat);
+				event.preventDefault();
+				$.ajax({
+					method: 'POST',
+					url: 'afficheVille',
+					data: {
+						"_token": "{{ csrf_token() }}",
+						"dept": $('#formulaire').html(),
+					},
+					success: function(data){
+						document.getElementById('ecole').innerHTML = "";
+						document.getElementById('entete_maladie').innerHTML = "";
+						document.getElementById('maladie').innerHTML = "";
+						document.getElementById('listeVille').innerHTML = "";
+						document.getElementById('liste2').innerHTML = "";
+						if(resultat === "Choisissez votre département"){
+							document.getElementById('avertissement').innerHTML = "Veuillez choisir un département";
+							$('#formVille').css("display", "none");
+						}
+						else{
+							$('#formVille').css("display", "block");
+							document.getElementById('avertissement').innerHTML = "";
+							for (var i = 0; i < data.dept.length; i++) {
+							document.getElementById('listeVille').innerHTML+= "<option value='"+data.dept[i].id_Ville+ "'>" + data.dept[i].nom_Ville + "</option>";
+						}
+						
+						}
+					}
+				});
+			});
+
+			$('#valideVille').on("click", function(event){
+
+				var resultat = $('#listeVille').val();
+				$('#formulaire2').html(resultat);
+				event.preventDefault();
+				$.ajax({
+					method: 'POST',
+					url: 'afficheEcole',
+					data: {
+						"_token": '{{ csrf_token() }}',
+						"ville": $('#formulaire2').html(),
+					},
+					success: function(data){
+						document.getElementById('maladie').innerHTML = "";
+						document.getElementById('entete_maladie').innerHTML = "";
+						document.getElementById('ecole').innerHTML = " ECOLES : ";
+						document.getElementById('liste2').innerHTML = "";
+						for (var i = 0; i < data.ville.length; i++) {
+							if(data.ville[i].id_Ecole === data.ecole ){
+								document.getElementById('liste2').innerHTML += "<li data-id= '"+data.ville[i].id_Ecole+"' style='color: red;'>"+ data.ville[i].nom_Ecole +"</li><hr>";
+							}
+							else{
+								document.getElementById('liste2').innerHTML += "<li data-id= '"+data.ville[i].id_Ecole+"'>"+ data.ville[i].nom_Ecole +"</li><hr>";
+							}
+							
+						}
+					}
+				});
+			});
 		});
+
+	// remise du css à zéro quand on passe du petit au grand écran
+		window.addEventListener ("resize", function() {
+            
+            if(document.documentElement.clientWidth > 1024){
+                formVille.style.cssText = "";
+                avertissement.style.cssText = "";
+                document.getElementById('ecole').innerHTML = "";
+                document.getElementById('liste2').innerHTML = "";
+                document.getElementById('maladie').innerHTML = "";
+				document.getElementById('entete_maladie').innerHTML = "";
+            }
+        }, true);
 	</script>
 </body>
 </html>
