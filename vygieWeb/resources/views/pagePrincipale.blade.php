@@ -31,9 +31,13 @@
 		</select>
 		<input type="submit" name="sublit" id="valideVille">	
 	</form>
+	<p></p>
 	<form id="formEcole">
 		<select id="listeEcole"></select>
+		<input type="submit" name="submit" id="validEcole">
 	</form>
+	<h5 id="titreMaladie">Maladie :</h5>
+	<p id="petiteMaladie"></p>
 	<img id="canvasMap" id="image" src="img/fondCarte.png" usemap="#map"/>
 	<canvas id="canvas">Mettez à jour votre navigateur Internet !</canvas>
 	<a id="formulaire" style="visibility: hidden;"></a>
@@ -161,10 +165,11 @@
 					},
 					success: function(data){
 						document.getElementById('ecole').innerHTML = "";
-						document.getElementById('entete_maladie').innerHTML = "";
-						document.getElementById('maladie').innerHTML = "";
+						$('#titreMaladie').css("display", "none");
+						document.getElementById('petiteMaladie').innerHTML = "";
 						document.getElementById('listeVille').innerHTML = "";
-						document.getElementById('liste2').innerHTML = "";
+						document.getElementById('listeEcole').innerHTML = "";
+						$('#formEcole').css("display", "none");
 						if(resultat === "Choisissez votre département"){
 							document.getElementById('avertissement').innerHTML = "Veuillez choisir un département";
 							$('#formVille').css("display", "none");
@@ -194,21 +199,54 @@
 						"ville": $('#formulaire2').html(),
 					},
 					success: function(data){
-						document.getElementById('maladie').innerHTML = "";
-						document.getElementById('entete_maladie').innerHTML = "";
-						document.getElementById('ecole').innerHTML = " ECOLES : ";
+						document.getElementById('petiteMaladie').innerHTML = "";
+						$('#titreMaladie').css("display", "none");
 						document.getElementById('liste2').innerHTML = "";
 						for (var i = 0; i < data.ville.length; i++) {
 							if(data.ville[i].id_Ecole === data.ecole ){
-								document.getElementById('liste2').innerHTML += "<li data-id= '"+data.ville[i].id_Ecole+"' style='color: red;'>"+ data.ville[i].nom_Ecole +"</li><hr>";
+								$('#formEcole').css("display", "block");
+								document.getElementById('listeEcole').innerHTML += "<option value= '"+data.ville[i].id_Ecole+"' style='color: red;'>"+ data.ville[i].nom_Ecole +"</option>";
 							}
 							else{
-								document.getElementById('liste2').innerHTML += "<li data-id= '"+data.ville[i].id_Ecole+"'>"+ data.ville[i].nom_Ecole +"</li><hr>";
+								$('#formEcole').css("display", "block");
+								document.getElementById('listeEcole').innerHTML += "<option value= '"+data.ville[i].id_Ecole+"'>"+ data.ville[i].nom_Ecole +"</option>";
 							}
 							
 						}
 					}
 				});
+			});
+
+			$('#validEcole').on("click", function(event){
+
+				var resultat = $('#listeEcole').val();
+
+				$('#formulaire3').html(resultat);
+				event.preventDefault();
+
+				$.ajax({
+					method: 'POST',
+					url: 'afficheMaladie',
+					data: {
+						"_token" :'{{ csrf_token() }}',
+						"ecole": $('#formulaire3').html(),
+					},
+					success: function(data){
+						document.getElementById('petiteMaladie').innerHTML = "";
+						$('#titreMaladie').css("display", "none");
+						if(data.enfant[0].infecter_Actif === 1){							
+							$('#titreMaladie').css("display", "block");
+							document.getElementById('petiteMaladie').innerHTML += data.ecole[0].nom_Maladie ;
+						}
+						else{
+							$('#titreMaladie').css("display", "none");
+							document.getElementById('petiteMaladie').innerHTML += "Aucune maladie à déclarer.";
+						}
+
+
+					}
+				});
+
 			});
 		});
 
@@ -218,9 +256,12 @@
             if(document.documentElement.clientWidth > 1024){
                 formVille.style.cssText = "";
                 avertissement.style.cssText = "";
+                formEcole.style.cssText = "";
+                petiteMaladie.style.cssText = "";
+                titreMaladie.style.cssText = "";
                 document.getElementById('ecole').innerHTML = "";
                 document.getElementById('liste2').innerHTML = "";
-                document.getElementById('maladie').innerHTML = "";
+                document.getElementById('petiteMaladie').innerHTML = "";
 				document.getElementById('entete_maladie').innerHTML = "";
             }
         }, true);
