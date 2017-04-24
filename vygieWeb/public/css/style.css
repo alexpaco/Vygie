@@ -7,14 +7,14 @@ header{
 	background-color: #423E3D;
 }
 #logo{
-	width: 100px;
+	width: 85px;
 	margin-left: 10%;
 
 }
 .explication{
 	text-align: center;
 }
-#listeDept{
+form{
 	display: none;
 }
 #ville{
@@ -36,7 +36,7 @@ header{
 	left: 50%;
 	top: 55%;
 	transform: translate(-50%, -50%);
-	height: 500px;
+	height: 410px;
 	width: 18%;
 	overflow: auto;
 }
@@ -45,7 +45,7 @@ header{
 	left: 68.5%;
 	top: 55%;
 	transform: translate(-50%,-50%);
-	height: 500px;
+	height: 410px;
 	width: 15%;
 	overflow: auto;
 }
@@ -61,7 +61,7 @@ header{
 	left: 90%;
 	top: 55%;
 	transform: translate(-50%,-50%);
-	height: 500px;
+	height: 410px;
 	width: 18%;
 }
 li{
@@ -71,7 +71,7 @@ li{
 #canvasMap{
     position: absolute;
     left: 25%;
-    top: 60%;
+    top: 59%;
     transform: translate(-50%, -50%);
     width : 500px;
     height : 500px;
@@ -81,7 +81,7 @@ li{
 #canvas{
 	position: absolute;
 	left: 25%;
-	top: 60%;
+	top: 59%;
 	transform: translate(-50%, -50%);
 }
 #legende {
@@ -108,47 +108,61 @@ footer{
 	color: #FF6B35;
 	text-align: center;
 }
+#formVille, #formEcole, #avertissement{
+	display: none;
+}
 
 @media all and (max-width :1024px){
 
 	#canvas, #canvasMap, #legende{
 		display: none;
 	}
+	#logo{
+		width: 60px;
+	}
+	p{
+		font-size: 12px;
+	}
+	li{
+		font-size: 14px;
+	}
+	form{
+		display: flex;
+		display: block;
+	}
+	#avertissement{
+		display: block;
+		color: red;
+	}
 	#listeDept{
 		margin-top: 20px;
-		display: block;
-		overflow: auto;
-		height: 210px;
 	}
-	#ville{
-		left: 10%;
-		top: 45%;
-	}
-	#liste{
-		width: 40%;
-		left: 0px;
-		transform: translate(0%, 0%);
-		height: 210px;
+	#ville, #liste{
+		display: none;
 	}
 	#ecole{
-		left: 53%;
-		top: 45%;
+		left: 5%;
+		top: 50%;
 	}
 	#liste2{
 		width: 40%;
-		left: 45%;
+		left: -20px;
+		top: 60%;
 		transform: translate(0%, 0%);
-		height: 210px;
+		height: 110px;
 	}
 	#entete_maladie{
 		left: 53%;
-		top: 75%;
+		top: 50%;
 	}
 	#maladie{
 		width: 40%;
-		left: 50%;
-		top: 80%;
+		left: 55%;
+		top: 60%;
 		transform: translate(0%, 0%);
-		height: 100px;
+		height: 110px;
+	}
+	#formDept, #formVille, #avertissement{
+		text-align: center;
 	}
 } 
