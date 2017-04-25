@@ -1,0 +1,127 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<script src="https://code.jquery.com/jquery-3.2.0.min.js" integrity="sha256-JAW99MJVpJBGcbzEuXk4Az05s/XyDdBomFqNlM3ic+I=" crossorigin="anonymous"></script>
+	<title>Inscription</title>
+	
+</head>
+<body>
+<header>
+
+	<img id="img"	src="logo-08.svg">
+
+</header>
+<!-- administration -->
+
+<form id='unForme' action="http://localhost/vygieApp/Vygie/VygiAjoutbdd+convP/apiBackOffice/apiBackOffice.php" method="post">
+		
+		<h1>Ajout écoles</h1>
+
+	<label for="ville">Ville :</label><br>
+	<input  placeholder="Ex : Paris" name="ville" id="ville" type="text">
+	<div class="villes">
+	<ul id="listVille"></ul>
+	</div>
+	<label for="codePostal">Code postal :</label><br>
+	<input  placeholder="Ex : 71200" name="codePostal" id="codePostal" type="number">
+	<br><br>
+	<label for="id_Departement">Numero departement :</label><br>
+	<input  placeholder="Pour 71200 num 71" name="id_Departement" id="id_Departement" type="number">
+	<br><br>
+	<label for="nom_Ecole">Nom école :</label><br>
+	<input  placeholder="Ex : Ecole de la pépinière" name="nom_Ecole" id="nom_Ecole" type="text">
+	<br><br>
+	<label for="adresse_Ecole">Adresse école :</label><br>
+	<input  placeholder="Ex : 71 rue Wilson" name="adresse_Ecole" id="adresse_Ecole" type="text"> 
+	<br><br>
+	
+	<input id="bouton" type="submit" name="publier" value="Publier">
+</form>
+
+<script>
+		//AJOUT
+	$('#bouton').on('click',function(e) {
+		e.preventDefault();
+		var ville = document.getElementById('ville').value;
+		var codePostal = document.getElementById('codePostal').value;
+		var id_Departement = document.getElementById('id_Departement').value;
+		var nom_Ecole = document.getElementById('nom_Ecole').value;
+		var adresse_Ecole = document.getElementById('adresse_Ecole').value;
+		
+		var infos = {
+			infos : {
+				ville : ville,
+				codePostal : codePostal,
+				id_Departement : id_Departement,
+				nom_Ecole : nom_Ecole,
+				adresse_Ecole: adresse_Ecole
+				
+			}
+		};
+		
+		$.ajax({
+				type: "POST",
+				url: "http://localhost/vygieApp/Vygie/VygiAjoutbdd+convP/apiBackOffice/apiBackOffice.php",
+				contentType : "application/json",
+				data: JSON.stringify(infos),
+				success: function(msg) {
+
+				}
+		});
+	});
+	
+	$('#ville').on('keyup',function(e) {
+		// console.log(this.value);this.value = document.getElementById('ville').value
+
+		$.ajax({
+				type: "GET",
+				url: "http://localhost/vygieApp/Vygie/VygiAjoutbdd+convP/apiBackOffice/apiBackOffice.php",	
+				data: {"lettre": this.value,"verif": 'vrai'},
+				success: function(msg) {
+					console.log(JSON.parse(msg));
+					let affichage = JSON.parse(msg);
+					console.log(affichage.length);
+					document.getElementById('listVille').innerHTML ="";
+					$('#codePostal').val('');
+					$('#id_Departement').val('');
+					for(var i = 0; i<affichage.length; i++)
+					{
+						document.getElementById('listVille').innerHTML +="<li class='lesTest'>"+affichage[i].nom_Ville+"</li>";
+					}
+				}
+		});
+	});	
+	$('#unForme').on('click','.lesTest',function(e) {
+		$.ajax({
+				type: "GET",
+				url: "http://localhost/vygieApp/Vygie/VygiAjoutbdd+convP/apiBackOffice/apiBackOffice.php",	
+				data: {"ville": this.innerHTML,"verif": 'faux'},
+				success: function(msg) {
+					console.log(JSON.parse(msg));
+					let affichage = JSON.parse(msg);
+					console.log(affichage.length);
+					for (var i = 0; i < affichage.length; i++) {
+						$('#ville').val(affichage[i].nom_Ville);
+						$('#codePostal').val(affichage[i].codePostal);
+						$('#id_Departement').val(affichage[i].id_Departement);
+					}
+				}
+		});
+	});
+</script>
+<div>
+<footer>
+<h2>Informations légales</h2>
+<p>En vertu de l'article 6 de la loi n° 2004-575 du 21 juin 2004 pour la confiance dans l'économie numérique, il est précisé aux utilisateurs du site <a href="http://www.Vygie.com/">www.Vygie.com</a> l'identité des différents intervenants dans le cadre de sa réalisation et de son suivi :</p>
+<p><strong>Propriétaire</strong> : Alexendre, Bryan, Florian –  – 71200<br />
+
+	
+</footer>
+<div>
+</body>
+</html>

@@ -1,4 +1,4 @@
- var couleurCarte = "#FF5B2B";
+ var couleurCarte = "#FF6B35";
  var couleurHover = "#423E3D";
  var frontièresDept = "#000000";
 
@@ -606,7 +606,6 @@ $(function(){
         $('<area />', {
           shape : "poly",
           coords : ""+obj+"",
-          // href :  ""+lnk+"",
           alt : ""+txt+"",
           id : id,
         }).data({
@@ -624,8 +623,6 @@ $(function(){
                             fillStyle : couleurCarte});
 		        $("div#legende").html("");
         }).click(function(){
-            //location.href=href;
-		        // window.location.href;
             $("#formulaire").html(this.id);
             render();
         }).appendTo(areas);
