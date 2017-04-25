@@ -61,7 +61,7 @@ export class HomePage {
         else
         {
             let unSelect = (<HTMLInputElement>document.getElementById('choisiUneEcole'));
-            let indexSelect = (<HTMLSelectElement>document.getElementById('choisiUneEcole')).selectedIndex;
+            // let indexSelect = (<HTMLSelectElement>document.getElementById('choisiUneEcole')).selectedIndex;
             this.storage.set('id',unSelect.value);
             // console.log(unSelect[indexSelect].text);
             window.location.reload();
